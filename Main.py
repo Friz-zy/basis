@@ -6,7 +6,7 @@ try:
   from PySide import QtCore, QtGui, QtWebKit, QtNetwork
 except:
 	try:
-		from PyQT import QtCore, QtGui, QtWebKit, QtNetwork
+		from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
 	except:
 		print >> sys.stderr, "Error: can't load PySide or PyQT"
 		sys.exit()
