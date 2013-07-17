@@ -50,7 +50,7 @@ class Main(QtGui.QMainWindow):
 		self.saveAsAction.triggered.connect(self.saveAs)
 
 		self.printItAction = QtGui.QAction(QtGui.QIcon.fromTheme(""),'&Print it', self)
-		self.saveAction.setStatusTip('Print this page')
+		self.printItAction.setStatusTip('Print this page')
 		self.printItAction.triggered.connect(self.printIt)
 
 		self.aboutAction = QtGui.QAction(QtGui.QIcon.fromTheme("help-about"),'&About', self)
@@ -134,7 +134,6 @@ class Main(QtGui.QMainWindow):
 			#filename.replace(" ", "+")
 			data = self.webView.page().mainFrame().toHtml()
 			with codecs.open(filename, encoding="utf-8", mode="w") as f: f.write(data)
-
 
 	def printIt(self):
 		if QtGui.QPrintDialog(self.printer, self).exec_() == QtGui.QDialog.Accepted:
