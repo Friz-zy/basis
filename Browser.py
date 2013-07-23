@@ -35,28 +35,34 @@ class Main(QtGui.QMainWindow):
 		self.printer = QtGui.QPrinter()
 
 		# main menu & actions
-		self.loadAction = QtGui.QAction(QtGui.QIcon.fromTheme("document-open"),'&Open', self)
+		self.loadAction = QtGui.QAction(QtGui.QIcon.fromTheme(
+					  "document-open"),'&Open', self)
 		self.loadAction.setShortcut('Ctrl+O')
 		self.loadAction.setStatusTip('Openfile')
 		self.loadAction.triggered.connect(self.open)
 
-		self.saveAction = QtGui.QAction(QtGui.QIcon.fromTheme("document-save"),'&Save', self)
+		self.saveAction = QtGui.QAction(QtGui.QIcon.fromTheme(
+					  "document-save"),'&Save', self)
 		self.saveAction.setShortcut('Ctrl+S')
 		self.saveAction.setStatusTip('Save file')
 		self.saveAction.triggered.connect(self.save)
 
-		self.saveAsAction = QtGui.QAction(QtGui.QIcon.fromTheme("document-save-as"),'&Save as', self)
+		self.saveAsAction = QtGui.QAction(QtGui.QIcon.fromTheme(
+				    "document-save-as"),'&Save as', self)
 		self.saveAction.setStatusTip('Save file as')
 		self.saveAsAction.triggered.connect(self.saveAs)
 
-		self.printItAction = QtGui.QAction(QtGui.QIcon.fromTheme(""),'&Print it', self)
+		self.printItAction = QtGui.QAction(QtGui.QIcon.fromTheme(
+						    ""),'&Print it', self)
 		self.printItAction.setStatusTip('Print this page')
 		self.printItAction.triggered.connect(self.printIt)
 
-		self.aboutAction = QtGui.QAction(QtGui.QIcon.fromTheme("help-about"),'&About', self)
+		self.aboutAction = QtGui.QAction(QtGui.QIcon.fromTheme(
+					    "help-about"),'&About', self)
 		self.aboutAction.triggered.connect(self.about)
 
-		self.quitAction = QtGui.QAction(QtGui.QIcon.fromTheme("application-exit"),'&Quit', self)
+		self.quitAction = QtGui.QAction(QtGui.QIcon.fromTheme(
+				      "application-exit"),'&Quit', self)
 		self.quitAction.setShortcut('Ctrl+Q')
 		self.quitAction.setStatusTip('Exit application')
 		self.quitAction.triggered.connect(self.close)
@@ -70,38 +76,40 @@ class Main(QtGui.QMainWindow):
 		self.fileMenu.addAction(self.quitAction)
 
 		# toolbar & actions
-		self.backAction = QtGui.QAction(QtGui.QIcon.fromTheme("go-previous"),'&Back', self)
+		self.backAction = QtGui.QAction(QtGui.QIcon.fromTheme(
+					    "go-previous"),'&Back', self)
 		self.backAction.setStatusTip('Back')
 		self.backAction.triggered.connect(self.back)
 		self.toolbarMenu.addAction(self.backAction)
 
-		self.forwardAction = QtGui.QAction(QtGui.QIcon.fromTheme("go-next"),'&Forward', self)
+		self.forwardAction = QtGui.QAction(QtGui.QIcon.fromTheme(
+					      "go-next"),'&Forward', self)
 		self.forwardAction.setStatusTip('Forward')
 		self.forwardAction.triggered.connect(self.forward)
 		self.toolbarMenu.addAction(self.forwardAction)
 
-		self.stopAction = QtGui.QAction(QtGui.QIcon.fromTheme("process-stop"),'&Stop', self)
+		self.stopAction = QtGui.QAction(QtGui.QIcon.fromTheme(
+					  "process-stop"),'&Stop', self)
 		self.stopAction.setStatusTip('Stop')
 		self.stopAction.triggered.connect(self.stop)
 		self.toolbarMenu.addAction(self.stopAction)
 
-		self.reloadAction = QtGui.QAction(QtGui.QIcon.fromTheme("view-refresh"),'&Reload', self)
+		self.reloadAction = QtGui.QAction(QtGui.QIcon.fromTheme(
+					    "view-refresh"),'&Reload', self)
 		self.reloadAction.setStatusTip('Reload')
 		self.reloadAction.triggered.connect(self.reload)
 		self.toolbarMenu.addAction(self.reloadAction)
 		
 		self.toolbarMenu.addWidget(self.url)
 		
-		self.runAction = QtGui.QAction(QtGui.QIcon.fromTheme("system-run"),'&Run', self)
+		self.runAction = QtGui.QAction(QtGui.QIcon.fromTheme(
+					    "system-run"),'&Run', self)
 		self.runAction.setStatusTip('Run')
 		self.runAction.triggered.connect(self.urlChanged)
 		self.toolbarMenu.addAction(self.runAction)
 
 	def loadConfig(self):
 		self.defaultSearche = "https://google.com/?q="
-		# list of user-agents http://www.useragentstring.com/pages/Internet%20Explorer/
-		# most popular http://techblog.willshouse.com/2012/01/03/most-common-user-agents/
-		self.userAgent = "ntram-pam"
 		self.homeDirectory = os.path.expanduser("~")
 		self.title = 'Browser'
 
@@ -109,7 +117,8 @@ class Main(QtGui.QMainWindow):
 		pass
 
 	def open(self):
-		self.webView.setUrl(QtCore.QUrl("file://" + self.showFileOpenDialog(self.homeDirectory)[0]))
+		self.webView.setUrl(QtCore.QUrl("file://" + \
+		  self.showFileOpenDialog(self.homeDirectory)[0]))
 
 	def save(self):
 		title = self.webView.title()
@@ -125,7 +134,8 @@ class Main(QtGui.QMainWindow):
 		if title == "":
 			title = self.url.text()
 		if ".html" not in title and title != "": title += ".html"
-		filename = self.showFileSaveDialog(title, self.homeDirectory)[0]
+		filename = self.showFileSaveDialog(title,
+				     self.homeDirectory)[0]
 		self.saveHtml(filename)
 
 	def saveHtml(self, filename):
@@ -133,10 +143,13 @@ class Main(QtGui.QMainWindow):
 			if ".html" not in filename: filename += ".html"
 			#filename.replace(" ", "+")
 			data = self.webView.page().mainFrame().toHtml()
-			with codecs.open(filename, encoding="utf-8", mode="w") as f: f.write(data)
+			with codecs.open(filename, encoding="utf-8",
+							mode="w") as f:
+				f.write(data)
 
 	def printIt(self):
-		if QtGui.QPrintDialog(self.printer, self).exec_() == QtGui.QDialog.Accepted:
+		if QtGui.QPrintDialog(self.printer,
+			      self).exec_() == QtGui.QDialog.Accepted:
 			self.webView.print_(self.printer)
 
 	def about(self):
@@ -196,12 +209,12 @@ class Main(QtGui.QMainWindow):
 			return False	
 
 	def showFileOpenDialog(self, path='.', filer=""):
-	# QStringList 	getOpenFileNames ( QWidget * parent = 0, const QString & caption = QString(), const QString & dir = QString(), const QString & filter = QString(), QString * selectedFilter = 0, Options options = 0 )
-		return QtGui.QFileDialog.getOpenFileName(self, 'Open file', path, filer)
+		return QtGui.QFileDialog.getOpenFileName(self,
+				      'Open file', path, filer)
 
 	def showFileSaveDialog(self, path='.', filer=""):
-	# QString 	getSaveFileName ( QWidget * parent = 0, const QString & caption = QString(), const QString & dir = QString(), const QString & filter = QString(), QString * selectedFilter = 0, Options options = 0 )
-		return QtGui.QFileDialog.getSaveFileName(self, 'Save file as:', path, filer)
+		return QtGui.QFileDialog.getSaveFileName(self,
+				    'Save file as:', path, filer)
 
 	def showMessage(self, title, text):
 		QtGui.QMessageBox.information(self, str(title), str(text))
