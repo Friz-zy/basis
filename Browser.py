@@ -251,6 +251,17 @@ class Main(QtGui.QMainWindow):
 		QtGui.QMessageBox.critical(self, str(title),
 						      str(text))
 
+	def showChoice(self, title, text):
+		q = QtGui.QMessageBox.question(self, 
+				  title,
+				  text,
+				  QtGui.QMessageBox.Yes,
+				  QtGui.QMessageBox.No)
+		if q == QtGui.QMessageBox.Yes:
+			return True
+		else:
+			return False
+
 	def closeEvent(self, e):
 		self.saveConfig()
 		print "bye!"
