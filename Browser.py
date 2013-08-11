@@ -52,13 +52,14 @@ class Main(QtGui.QMainWindow):
 		self.setWindowTitle(self.title)
 		self.webView = QtWebKit.QWebView()
 		self.webView.urlChanged.connect(self.beforeLoadPage)
+		self.webView.page().linkHovered.connect(self.showLink)
 		self.url = QtGui.QLineEdit()
 		self.url.returnPressed.connect(self.urlChanged)
 		self.setCentralWidget(self.webView)
 		self.menubar = self.menuBar()
 		self.toolbarMenu = self.addToolBar('Navigation')
 		self.statusBar()
-		
+
 		self.printer = QtGui.QPrinter()
 
 		# main menu & actions
@@ -234,6 +235,9 @@ class Main(QtGui.QMainWindow):
 			return True
 		except:
 			return False	
+
+	def showLink(self, link, title, textContent):
+		self.statusBar().showMessage(link)
 
 	def showFileOpenDialog(self, path='.', filer=""):
 		return QtGui.QFileDialog.getOpenFileName(self,
