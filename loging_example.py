@@ -5,13 +5,20 @@ Simple example of loging
 src: http://www.slideshare.net/MinskPythonMeetup/ss-32114024#
 """
 
+import os
 import sys
 import logging
+import getpass
+import socket
 
 # inicialize
+# 30 May 2014 19:44:09  $hostname $username    11660 loging_example.py      [INFO    ]      i'm alive!
 logging.basicConfig(
-    format='%(asctime)s  %(name)s [%(levelname)s] %(message)s',
-    stream=sys.stdout,
+    format=u'%(asctime)s  {0} {1}    %(process)d %(filename)s\t[%(levelname)-8s]\t%(message)s'.format(socket.gethostname(), getpass.getuser()),
+    datefmt='%d %b %Y %H:%M:%S',
+    stream=sys.stdout,# will be replacing by filename
+    filename=os.path.join(os.path.expanduser("~"), 'log', __file__.replace('.py', '.log')), # save log as ~/log/loging_example.log
+    filemode='a',
     level=logging.INFO)
 
 # first word of script. Horay!
